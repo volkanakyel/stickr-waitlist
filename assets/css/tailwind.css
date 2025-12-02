@@ -1,0 +1,213 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Color scheme using RGB for Tailwind v3 compatibility */
+  --background: 250 250 250;
+  --foreground: 51 51 51;
+  --card: 255 255 255;
+  --card-foreground: 51 51 51;
+  --primary: 51 51 51;
+  --primary-foreground: 250 250 250;
+  --secondary: 217 217 217;
+  --secondary-foreground: 51 51 51;
+  --muted: 230 230 230;
+  --muted-foreground: 128 128 128;
+  --accent: 77 77 77;
+  --accent-foreground: 250 250 250;
+  --border: 235 235 235;
+  --input: 242 242 242;
+  --ring: 77 77 77;
+  --radius: 0.625rem;
+}
+
+.dark {
+  --background: 37 37 37;
+  --foreground: 251 251 251;
+  --card: 37 37 37;
+  --card-foreground: 251 251 251;
+  --primary: 251 251 251;
+  --primary-foreground: 52 52 52;
+  --secondary: 69 69 69;
+  --secondary-foreground: 251 251 251;
+  --muted: 69 69 69;
+  --muted-foreground: 181 181 181;
+  --accent: 69 69 69;
+  --accent-foreground: 251 251 251;
+  --border: 69 69 69;
+  --input: 69 69 69;
+  --ring: 112 112 112;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong {
+    @apply font-heading font-semibold;
+  }
+}
+
+@layer utilities {
+  .dither {
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.02) 2px,
+      rgba(0, 0, 0, 0.02) 4px
+    );
+  }
+
+  .dither-dark {
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.06) 2px,
+      rgba(0, 0, 0, 0.06) 4px
+    );
+  }
+
+  .dither-separator {
+    position: relative;
+  }
+
+  .dither-separator::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.03) 10%,
+      rgba(0, 0, 0, 0.06) 20%,
+      transparent 30%,
+      rgba(0, 0, 0, 0.04) 40%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.05) 60%,
+      transparent 70%,
+      rgba(0, 0, 0, 0.03) 80%,
+      transparent 100%
+    );
+    background-size: 20px 100%;
+    animation: ditherFlow 8s linear infinite;
+  }
+
+  @keyframes ditherFlow {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 200px 0;
+    }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .scroll-stagger {
+    animation: scrollStagger 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scrollStagger {
+    from {
+      opacity: 0;
+      transform: translateY(24px) translateX(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) translateX(0);
+    }
+  }
+
+  /* Grid fade transition for category switching */
+  .grid-fade-enter-active {
+    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .grid-fade-leave-active {
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 1, 1);
+  }
+
+  .grid-fade-enter-from,
+  .grid-fade-leave-to {
+    opacity: 0;
+  }
+
+  /* Device card staggered entrance animation */
+  .device-card {
+    animation: cardEntrance 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes cardEntrance {
+    from {
+      opacity: 0;
+      transform: scale(0.92) translateY(24px);
+      filter: blur(4px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      filter: blur(0);
+    }
+  }
+
+  /* Filter button transitions */
+  .filter-btn {
+    transition:
+      background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .filter-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .filter-btn:active {
+    transform: translateY(0) scale(0.98);
+    transition-duration: 0.1s;
+  }
+}
